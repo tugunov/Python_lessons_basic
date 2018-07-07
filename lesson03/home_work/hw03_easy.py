@@ -4,13 +4,41 @@
 # Округление должно происходить по математическим правилам (0.6 --> 1, 0.4 --> 0).
 # Для решения задачи не используйте встроенные функции и функции из модуля math.
 
+def my_len(str_in): 
+# так как нельзя использовать встроенные функции, то пишем свою len()
+	l = 0
+	for i in str_in:
+		l += 1
+	return l
+
+# вообще говоря, функции явного преобразования типа - тоже встроенные
+# но как обойтись без них - непонятно
 def my_round(number, ndigits):
-    pass
+    snum = str(number)
+    print(my_len(snum), len(snum))
+    ppos = snum.find('.')
+    sres = ''
+    
+    if int(snum[ppos+ndigits]) in range(0, 5): # округление в меньшую сторону
+        print('округление обрезкой')
+        sres = snum[:ppos+ndigits+1] # просто обрезаем все, что справа
+    else: # округление в большую сторону
+        print('отрезаем', snum[ppos+1:ppos+ndigits+1])
+        r_part = str(int(snum[ppos+1:ppos+ndigits+1]) + 1)
+        print('r_part', r_part)
+        if my_len(r_part) == ndigits:
+            sres = snum[:ppos+1] + r_part
+        else:
+            sres = snum[:ppos-1] + str(int(snum[ppos-1])+1) + '.' + r_part[1:]
+    
+    # здесь у sres нужно обрезать незначащие нули (возможно, и всю дробную часть)
 
+    return sres
 
-print(my_round(2.1234567, 5))
-print(my_round(2.1999967, 5))
+print(my_round(2.1234567, 4))
+print(my_round(2.1999967, 4))
 print(my_round(2.9999967, 5))
+# print(my_round(2.999996745, 5))
 
 
 # Задание-2:
@@ -42,7 +70,7 @@ def lucky_ticket(ticket_number):
     	return 'Несчастливый билет.'
 
 
-print(lucky_ticket(123006))
-print(lucky_ticket(12321))
-print(lucky_ticket(436751))
-print(lucky_ticket(43675144))
+# print(lucky_ticket(123006))
+# print(lucky_ticket(12321))
+# print(lucky_ticket(436751))
+# print(lucky_ticket(43675144))
