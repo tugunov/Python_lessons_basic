@@ -20,9 +20,29 @@ print(my_round(2.9999967, 5))
 # !!!P.S.: функция не должна НИЧЕГО print'ить
 
 def lucky_ticket(ticket_number):
-    pass
+
+# Функция принимает на вход номер билета
+# На выход выдает строковое сообщение:
+# Счастливый/Несчастливый/Сообщение о превышении длины номера билета	
+
+    tkt_str = str(ticket_number)
+    if len(tkt_str) > 6:
+    	return 'Номер билета должен быть не длиннее шести знаков!' 
+    # Если номер не превышает шести символов - дополним его до формата
+    tkt_str = '0'*(6-len(tkt_str)) + tkt_str
+    left_part = 0
+    right_part = 0
+
+    for i in range(0, 3): # суммируем цифры левой и правой части
+        left_part += int(tkt_str[i])
+        right_part += int(tkt_str[i+3])
+    if left_part == right_part:
+    	return 'Счастливый билет!'
+    else:
+    	return 'Несчастливый билет.'
 
 
 print(lucky_ticket(123006))
 print(lucky_ticket(12321))
 print(lucky_ticket(436751))
+print(lucky_ticket(43675144))
