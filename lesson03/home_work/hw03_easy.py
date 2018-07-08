@@ -15,30 +15,41 @@ def my_len(str_in):
 # но как обойтись без них - непонятно
 def my_round(number, ndigits):
     snum = str(number)
-    print(my_len(snum), len(snum))
     ppos = snum.find('.')
     sres = ''
     
-    if int(snum[ppos+ndigits]) in range(0, 5): # округление в меньшую сторону
-        print('округление обрезкой')
+    if int(snum[ppos+ndigits+1]) in (0, 1, 2, 3, 4): # без range
+        # округление в меньшую сторону
         sres = snum[:ppos+ndigits+1] # просто обрезаем все, что справа
     else: # округление в большую сторону
-        print('отрезаем', snum[ppos+1:ppos+ndigits+1])
+        # прибавляем единицу к дробной части
         r_part = str(int(snum[ppos+1:ppos+ndigits+1]) + 1)
-        print('r_part', r_part)
+
         if my_len(r_part) == ndigits:
             sres = snum[:ppos+1] + r_part
         else:
             sres = snum[:ppos-1] + str(int(snum[ppos-1])+1) + '.' + r_part[1:]
     
-    # здесь у sres нужно обрезать незначащие нули (возможно, и всю дробную часть)
+    # здесь у sres нужно обрезать незначащие нули 
+    # (возможно, и всю дробную часть)
+    cnt = 0
+    for i in sres[::-1]:
+        if i != '0':
+            break
+        else:
+            cnt += 1
+    sres = sres[:my_len(sres)-cnt]
+    
+    if sres[-1] == '.':
+        sres = sres[:my_len(sres)-1]
+
 
     return sres
 
-print(my_round(2.1234567, 4))
+print(my_round(2.1234567, 3))
 print(my_round(2.1999967, 4))
-print(my_round(2.9999967, 5))
-# print(my_round(2.999996745, 5))
+print(my_round(2.9999967, 4))
+print(my_round(2.999996745, 7))
 
 
 # Задание-2:
