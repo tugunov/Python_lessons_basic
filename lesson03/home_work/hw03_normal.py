@@ -25,18 +25,18 @@ def sort_to_max(origin_list):
     			origin_list[j] = x
     return origin_list
 
-# print([2, 10, -12, 2.5, 20, -11, 4, 4, 0])
-# print(sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0]))
+print([2, 10, -12, 2.5, 20, -11, 4, 4, 0])
+print(sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0]))
 
 # Задача-3:
 # Напишите собственную реализацию стандартной функции filter.
 # Разумеется, внутри нельзя использовать саму функцию filter.
 
-def my_filter(func, iter):
-	for item in iter:
-		if func(item) == True:
-			output.append(item)
-	return output
+# def my_filter(func, iter):
+# 	for item in iter:
+# 		if func(item) == True:
+# 			output.append(item)
+# 	return output 
 
 # a = (1, 2, 3, 4, 5, 6)
 
@@ -49,53 +49,59 @@ def my_filter(func, iter):
 # Даны четыре точки А1(х1, у1), А2(x2 ,у2), А3(x3 , у3), А4(х4, у4).
 # Определить, будут ли они вершинами параллелограмма.
 
-# предлагаю решить задачу по признаку параллелограма: если диагонали
-# четырехугольника при пересечении делятся пополам - это параллелограм
+# предлагаю решить задачу по определению параллелограмма - это
+# четырехугольник, стороны которого попарно параллельны
 
-def pp_line(p1, p2): # уравнение линии по двум точкам
+def pp_line(p1, p2): # общее уравнение прямой по двум точкам
 	# на вход координаты двух точек в виде кортежей (p1 = (x1, y1))
 	# на выход выдается кортеж коэффициентов (A, B, C) Ax + By + C = 0
 	A = p1[1] - p2[1]
 	B = p2[0] - p1[0]
 	C = p1[0]*p2[1] - p2[0]*p1[1]
 	return (A, B, C)
-	
 
-def line_x(coef1, coef2): # координаты пересечения двух прямых по коэффициентам
-	# на вход кортежи из коэффициентов двух прямых (A, B, C)
-	# на выходе точка пересечения (если она есть)
-	import numpy as np
-	# решение СЛАУ с помощью библиотеки numpy
-	a = np.array([[coef1[0], coef1[1]], [coef2[0], coef2[1]]])
-	b = np.array([(-1)*coef1[2], (-1)*coef2[2]])
+def ll_par(coef1, coef2):
+	# на вход кортежи из коэффициентов общих уравнений двух прямых (A, B, C)
+	# на выход - True если прямые параллельны, False - если нет.
+	# нужно обработать исключения, связанные с нулевыми A, B 
+	if (coef1[0] == 0 & coef2[0] == 0) | (coef1[1] == 0 & coef2[1] == 0):
+		return True # случай параллельности координатным осям
+	elif coef1[0] == 0 | coef1[1] == 0: # нулевой коэффициент в уравнении 1
+		return ((coef1[0]/coef2[0]) == (coef1[1]/coef2[1]))
 
-	x = np.linalg.solve(a, b)
-	# return x[0], x[1]
-	return x
+	elif coef2[0] == 0 | coef2[1] == 0: # нулевой коэффициент в уравнении 2
+		return((coef2[0]/coef1[0]) == (coef2[1]/coef1[1]))
 
-def pp_mid(p1, p2): 
-	# возвращает координаты середины отрезка по координатам концов отрезка
-	return (p1[0] + p2[0])/2, (p1[1] + p2[1])/2
-	
+		# предусмотрели все возможные деления на ноль
+	else: # обработка случая ненулевых коэффициентов
+		return((coef2[0]/coef1[0]) == (coef2[1]/coef1[1])) 
 
 def is_pgram(p_list):
-	pass
+	# на вход - координаты точек p1, p2, p3, p4 списком четырех кортежей
+	# на выход - True, если стороны попарно параллельны
+	# False - иначе
+	p1p2 = pp_line(p_list[0], p_list[1])
+	p2p3 = pp_line(p_list[1], p_list[2])
+	p3p4 = pp_line(p_list[2], p_list[3])
+	p4p1 = pp_line(p_list[3], p_list[0])
+	p1p3 = pp_line(p_list[0], p_list[2])
+	p2p4 = pp_line(p_list[1], p_list[3])
 
-p1 = (0, 0)
-p2 = (0, 4)
-p3 = (6, 4)
-p4 = (6, 0)
-eq1 = pp_line(p1, p4)
-eq2 = pp_line(p2, p3)
-print(eq1)
-print(eq2)
-print(line_x(eq1, eq2))
-print(pp_mid(p1, p3))
-print(pp_mid(p2, p4))
+	# возможно всего две комбинации условий попарной параллельности
+	# для отрезков прямых через четыре точки на плоскости:
 
-# p_list = [(1, 1), (1, 5), (6, 5), (6, 1)]
-# print(l_intersect(pp_line(p_list[0], p_list[2]),
-# 	pp_line(p_list[1], p_list[3])))
+	return ((ll_par(p1p2, p3p4) & ll_par(p2p3, p4p1)) | 
+			(ll_par(p1p2, p3p4) & ll_par(p1p3, p2p4)))
 
 
+p_rectangular = [(0, 0), (0, 4), (6, 4), (6, 0)] # тест на прямоугольник
+p_parallel = [(1, -1), (5, 5), (9, 4), (5, -2)] # тест на обычный пар-мм
+p_not = [(1, -1), (5, 5), (9, 4), (5, 0)] # не параллелограмм
+
+print(p_rectangular)
+print('Is parallelogram: ', is_pgram(p_rectangular))
+print(p_parallel)
+print('Is parallelogram: ', is_pgram(p_parallel))
+print(p_not)
+print('Is parallelogram: ', is_pgram(p_not))
 
