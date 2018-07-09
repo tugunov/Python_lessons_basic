@@ -8,7 +8,7 @@ def fibonacci(n, m):
     	fib.append(fib[i-1]+fib[i-2])
     return fib[n-1:m]
 
-print(fibonacci(5, 10))
+# print(fibonacci(5, 10))
 
 # Задача-2:
 # Напишите функцию, сортирующую принимаемый список по возрастанию.
@@ -17,9 +17,16 @@ print(fibonacci(5, 10))
 
 
 def sort_to_max(origin_list):
-    pass
+    for i in range(0, len(origin_list)):
+    	for j in range(len(origin_list)-1, i, -1):
+    		if origin_list[j-1] > origin_list[j]:
+    			x = origin_list[j-1]
+    			origin_list[j-1] = origin_list[j]
+    			origin_list[j] = x
+    return origin_list
 
-sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0])
+print([2, 10, -12, 2.5, 20, -11, 4, 4, 0])
+print(sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0]))
 
 # Задача-3:
 # Напишите собственную реализацию стандартной функции filter.
