@@ -9,67 +9,67 @@
 # Ввод: -2/3 - -2
 # Вывод: 1 1/3
 
-# def make_part(lst, left, right):
-# 	# на вход принимает номера диапазона нахождения слагаемой дроби в списке lst
-# 	# возвращает кортеж из числителя и знаменателя сложной дроби
-# 	part = []
-# 	for i in range(left, right):
+def make_part(lst, left, right):
+	# на вход принимает номера диапазона нахождения слагаемой дроби в списке lst
+	# возвращает кортеж из числителя и знаменателя сложной дроби
+	part = []
+	for i in range(left, right):
 		
-# 		if lst[i].find('/') != -1:
-# 			part.append(int(lst[i].split('/')[0]))
-# 			part.append(int(lst[i].split('/')[1]))
-# 		else:
-# 			part.append(int(lst[i]))
+		if lst[i].find('/') != -1:
+			part.append(int(lst[i].split('/')[0]))
+			part.append(int(lst[i].split('/')[1]))
+		else:
+			part.append(int(lst[i]))
 
-# 	if len(part) == 1:
-# 		numerator = part[0]
-# 		denominator = 1
-# 	elif len(part) == 2:
-# 		numerator = part[0]
-# 		denominator = part[1]
-# 	else:
-# 		numerator = (part[0]/abs(part[0]))*(abs(part[0])*part[2] + part[1])
-# 		denominator = part[2]
+	if len(part) == 1:
+		numerator = part[0]
+		denominator = 1
+	elif len(part) == 2:
+		numerator = part[0]
+		denominator = part[1]
+	else:
+		numerator = (part[0]/abs(part[0]))*(abs(part[0])*part[2] + part[1])
+		denominator = part[2]
 	
-# 	return (numerator, denominator)
+	return (numerator, denominator)
 
-# def sum_dec (string):
-# 	# на вход - строка с выражением сложения или вычитания дробей
-# 	# на выход - строка с упрощенным результатом
-# 	s = string.split(' ')
-# 	i = 0
-# 	oper = 0
-# 	for item in s:
-# 		if (item == '+') | (item == '-'):
-# 			oper = i
-# 		i += 1
+def sum_dec (string):
+	# на вход - строка с выражением сложения или вычитания дробей
+	# на выход - строка с упрощенным результатом
+	s = string.split(' ')
+	i = 0
+	oper = 0
+	for item in s:
+		if (item == '+') | (item == '-'):
+			oper = i
+		i += 1
 
-# 	if s[oper] == '+':
-# 		znak = 1
-# 	elif s[oper] == '-':
-# 		znak = -1
+	if s[oper] == '+':
+		znak = 1
+	elif s[oper] == '-':
+		znak = -1
 
-# 	left = make_part(s, 0, oper)
-# 	right = make_part(s, oper+1, len(s))
+	left = make_part(s, 0, oper)
+	right = make_part(s, oper+1, len(s))
 
-# 	num = int(left[0]*right[1] + znak*(left[1]*right[0]))
-# 	den = int(left[1]*right[1])
+	num = int(left[0]*right[1] + znak*(left[1]*right[0]))
+	den = int(left[1]*right[1])
 
-# 	if abs(num) > den:
-# 		a = int((abs(num) // den) * (abs(num)/num))
-# 		b = abs(num) % den
-# 		c = den
+	if abs(num) > den:
+		a = int((abs(num) // den) * (abs(num)/num))
+		b = abs(num) % den
+		c = den
 
-# 		return 'Результат: {} {}/{}'.format(str(a), str(b), str(c))
-# 	else:
-# 		return 'Результат: {}/{}'.format(str(num), str(den))
+		return 'Результат: {} {}/{}'.format(str(a), str(b), str(c))
+	else:
+		return 'Результат: {}/{}'.format(str(num), str(den))
 
-# s1 = '5/6 + 4/7'
-# print(s1)
-# print(sum_dec(s1))
-# s2 = '-2/3 - -2'
-# print(s2)
-# print(sum_dec(s2))
+s1 = '5/6 + 4/7'
+print(s1)
+print(sum_dec(s1))
+s2 = '-2/3 - -2'
+print(s2)
+print(sum_dec(s2))
 
 
 
@@ -81,76 +81,76 @@
 # они получают удвоенную ЗП, пропорциональную норме.
 # Кол-во часов, которые были отработаны, указаны в файле "data/hours_of"
 
-# import os
+import os
 
-# p_workers = os.path.join('data','workers')
-# p_hours = os.path.join('data','hours_of')
+p_workers = os.path.join('data','workers')
+p_hours = os.path.join('data','hours_of')
 
-# f_w = open(p_workers, 'r', encoding='UTF-8')
-# f_h = open(p_hours, 'r', encoding='UTF-8')
+f_w = open(p_workers, 'r', encoding='UTF-8')
+f_h = open(p_hours, 'r', encoding='UTF-8')
 
-# w_string = f_w.readlines()
-# h_string = f_h.readlines()
+w_string = f_w.readlines() #читаем данные  в списки
+h_string = f_h.readlines()
 
-# f_w.close()
-# f_h.close()
+f_w.close()
+f_h.close()
 
-# w_table = [] # для хранения и работы с таблицами данных
-# h_table = []
-# res_table = []
+w_table = [] # для хранения и работы с таблицами данных
+h_table = []
+res_table = []
 
-# for line in w_string: # преобразовываем файлы в двумерные списки-таблицы
-# 	s = line.replace('\n', '')
-# 	s = s.split(' ')
-# 	s = list(filter(lambda x: x!='', s))
-# 	w_table.append(s)
+for line in w_string: # преобразовываем списки в двумерные списки-таблицы
+	s = line.replace('\n', '')
+	s = s.split(' ')
+	s = list(filter(lambda x: x!='', s))
+	w_table.append(s)
 
-# for line in h_string:
-# 	s = line.replace('\n', '')
-# 	s = s.split(' ')
-# 	s = list(filter(lambda x: x!='', s))
-# 	h_table.append(s)
+for line in h_string:
+	s = line.replace('\n', '')
+	s = s.split(' ')
+	s = list(filter(lambda x: x!='', s))
+	h_table.append(s)
 
-# w_table.pop(0) #удаляем заголовки в таблицах
-# h_table.pop(0)
+w_table.pop(0) # удаляем заголовки в таблицах
+h_table.pop(0)
 
-# print(w_table)
-# print(h_table)
+print(w_table)
+print(h_table)
 
-# for line in w_table:
-# 	name = line[0]
-# 	surname = line[1]
-# 	salary = float(line[2])
-# 	norm_hours = int(line[4])
-# 	for h_line in h_table:
-# 		if (h_line[0] == name) & (h_line[1] == surname):
-# 			fact_hours = int(h_line[2])
+for line in w_table:
+	name = line[0]
+	surname = line[1]
+	salary = float(line[2])
+	norm_hours = int(line[4])
+	for h_line in h_table:
+		if (h_line[0] == name) & (h_line[1] == surname):
+			fact_hours = int(h_line[2])
 
-# 	if fact_hours <= norm_hours:
-# 		salary = salary * (fact_hours/norm_hours)
-# 	else:
-# 		salary = salary * (1 + (fact_hours - norm_hours) / norm_hours)
+	if fact_hours <= norm_hours:
+		salary = salary * (fact_hours/norm_hours)
+	else:
+		salary = salary * (1 + (fact_hours - norm_hours) / norm_hours)
 
-# 	res_table.append([name, surname, str(round(salary, 2))])
+	res_table.append([name, surname, str(round(salary, 2))])
 
-# 	# print('{} {} {}'.format(name, surname, round(salary, 2)))
+	# print('{} {} {}'.format(name, surname, round(salary, 2)))
 
-# # красивый вывод на печать данных о фактической зарплате
-# name_max = 0
-# surname_max = 0
-# salary_max = 0
+# красивый вывод на печать данных о фактической зарплате
+name_max = 0
+surname_max = 0
+salary_max = 0
 
-# for line in res_table:
-# 	if len(line[0])>name_max:
-# 		name_max = len(line[0])
-# 	if len(line[1])>surname_max:
-# 		surname_max = len(line[1])
-# 	if len(line[2])>salary_max:
-# 		salary_max = len(line[2])
+for line in res_table:
+	if len(line[0])>name_max:
+		name_max = len(line[0])
+	if len(line[1])>surname_max:
+		surname_max = len(line[1])
+	if len(line[2])>salary_max:
+		salary_max = len(line[2])
 
-# for line in res_table:
-# 	print('{}{} {}{} {}'.format(line[0], ' '*(name_max - len(line[0])),
-# 		line[1], ' '*(surname_max - len(line[1])), line[2]))
+for line in res_table:
+	print('{}{} {}{} {}'.format(line[0], ' '*(name_max - len(line[0])),
+		line[1], ' '*(surname_max - len(line[1])), line[2]))
 
 # Задание-3:
 # Дан файл ("data/fruits") со списком фруктов.
