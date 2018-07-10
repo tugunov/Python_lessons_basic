@@ -9,6 +9,69 @@
 # Ввод: -2/3 - -2
 # Вывод: 1 1/3
 
+def make_part(lst, left, right):
+	# на вход принимает номера диапазона нахождения слагаемой дроби в списке lst
+	# возвращает кортеж из числителя и знаменателя сложной дроби
+	part = []
+	for i in range(left, right):
+		
+		if lst[i].find('/') != -1:
+			part.append(int(lst[i].split('/')[0]))
+			part.append(int(lst[i].split('/')[1]))
+		else:
+			part.append(int(lst[i]))
+
+	if len(part) == 1:
+		numerator = part[0]
+		denominator = 1
+	elif len(part) == 2:
+		numerator = part[0]
+		denominator = part[1]
+	else:
+		numerator = (part[0]/abs(part[0]))*(abs(part[0])*part[2] + part[1])
+		denominator = part[2]
+	
+	return (numerator, denominator)
+
+def sum_dec (string):
+	# на вход - строка с выражением сложения или вычитания дробей
+	# на выход - строка с упрощенным результатом
+	s = string.split(' ')
+	i = 0
+	oper = 0
+	for item in s:
+		if (item == '+') | (item == '-'):
+			oper = i
+		i += 1
+
+	if s[oper] == '+':
+		znak = 1
+	elif s[oper] == '-':
+		znak = -1
+
+	left = make_part(s, 0, oper)
+	right = make_part(s, oper+1, len(s))
+
+	num = int(left[0]*right[1] + znak*(left[1]*right[0]))
+	den = int(left[1]*right[1])
+
+	if abs(num) > den:
+		a = int((abs(num) // den) * (abs(num)/num))
+		b = abs(num) % den
+		c = den
+
+		return 'Результат: {} {}/{}'.format(str(a), str(b), str(c))
+	else:
+		return 'Результат: {}/{}'.format(str(num), str(den))
+
+s1 = '5/6 + 4/7'
+print(s1)
+print(sum_dec(s1))
+s2 = '-2/3 - -2'
+print(s2)
+print(sum_dec(s2))
+
+
 
 # Задание-2:
 # Дана ведомость расчета заработной платы (файл "data/workers").
