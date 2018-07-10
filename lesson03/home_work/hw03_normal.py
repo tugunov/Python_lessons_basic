@@ -25,25 +25,23 @@ def sort_to_max(origin_list):
     			origin_list[j] = x
     return origin_list
 
-print([2, 10, -12, 2.5, 20, -11, 4, 4, 0])
-print(sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0]))
+# print([2, 10, -12, 2.5, 20, -11, 4, 4, 0])
+# print(sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0]))
 
 # Задача-3:
 # Напишите собственную реализацию стандартной функции filter.
 # Разумеется, внутри нельзя использовать саму функцию filter.
 
-# def my_filter(func, iter):
-# 	for item in iter:
-# 		if func(item) == True:
-# 			output.append(item)
-# 	return output 
+def my_filter(func, iter):
+	output = []
+	for item in iter:
+		if func(item) == True:
+			output.append(item)
+	return output 
 
-# a = (1, 2, 3, 4, 5, 6)
+a = (1, 2, 3, 4, 5, 6)
 
-# f_obj = filter(lambda x : x % 2 == 0, a)
-# num_list = list(f_obj)
-# print(num_list)
-# print(my_filter(lambda x : x % 2 == 0, a))
+print(my_filter(lambda x : x % 2 == 0, a))
 
 # Задача-4:
 # Даны четыре точки А1(х1, у1), А2(x2 ,у2), А3(x3 , у3), А4(х4, у4).
@@ -94,14 +92,14 @@ def is_pgram(p_list):
 			(ll_par(p1p2, p3p4) & ll_par(p1p3, p2p4)))
 
 
-p_rectangular = [(0, 0), (0, 4), (6, 4), (6, 0)] # тест на прямоугольник
-p_parallel = [(1, -1), (5, 5), (9, 4), (5, -2)] # тест на обычный пар-мм
-p_not = [(1, -1), (5, 5), (9, 4), (5, 0)] # не параллелограмм
+# p_rectangular = [(0, 0), (0, 4), (6, 4), (6, 0)] # тест на прямоугольник
+# p_parallel = [(1, -1), (5, 5), (9, 4), (5, -2)] # тест на обычный пар-мм
+# p_not = [(1, -1), (5, 5), (9, 4), (5, 0)] # не параллелограмм
 
-print(p_rectangular)
-print('Is parallelogram: ', is_pgram(p_rectangular))
-print(p_parallel)
-print('Is parallelogram: ', is_pgram(p_parallel))
-print(p_not)
-print('Is parallelogram: ', is_pgram(p_not))
+# print(p_rectangular)
+# print('Is parallelogram: ', is_pgram(p_rectangular))
+# print(p_parallel)
+# print('Is parallelogram: ', is_pgram(p_parallel))
+# print(p_not)
+# print('Is parallelogram: ', is_pgram(p_not))
 
