@@ -30,8 +30,8 @@ def my_round(number, ndigits):
         else:
             sres = snum[:ppos-1] + str(int(snum[ppos-1])+1) + '.' + r_part[1:]
     
-    # здесь у sres нужно обрезать незначащие нули 
-    # (возможно, и всю дробную часть)
+    # здесь у sres нужно обрезать незначащие нули справа
+    # (возможно, и всю дробную часть вместе с точкой)
     cnt = 0
     for i in sres[::-1]:
         if i != '0':
@@ -46,10 +46,10 @@ def my_round(number, ndigits):
 
     return sres
 
-print(my_round(2.1234567, 3))
-print(my_round(2.1999967, 4))
-print(my_round(2.9999967, 4))
-print(my_round(2.999996745, 7))
+# print(my_round(2.1234567, 3))
+# print(my_round(2.1999967, 4))
+# print(my_round(2.9999967, 4))
+# print(my_round(2.999996745, 7))
 
 
 # Задание-2:
