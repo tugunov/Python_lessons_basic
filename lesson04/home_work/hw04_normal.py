@@ -26,24 +26,24 @@ line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
 # found = re.findall(pattern1, line) + re.findall(pattern2, line)
 # print(found)
 
-# -- СПОСОБ 2 --
-newline = ''
-sequences = []
-lower = list(map(chr, range(ord('a'), ord('z')+1)))
+# # -- СПОСОБ 2 --
+# newline = ''
+# sequences = []
+# lower = list(map(chr, range(ord('a'), ord('z')+1)))
 
-print(lower)
-for i in line:
-	if i in lower:
-		newline += i
-	else:
-		if newline != '':
-			sequences.append(newline)
-		newline = ''
+# print(lower)
+# for i in line:
+# 	if i in lower:
+# 		newline += i
+# 	else:
+# 		if newline != '':
+# 			sequences.append(newline)
+# 		newline = ''
 
-if newline != '': #строка символов после последнего символа в верхнем регистре
-	sequences.append(newline)
-	
-print(sequences)
+# if newline != '': #строка символов после последнего символа в верхнем регистре
+# 	sequences.append(newline)
+
+# print(sequences)
 
 
 # Задание-2:
@@ -77,7 +77,28 @@ line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
 # print(found)
 
 # -- СПОСОБ 2 --
+symbols = []
+lo = list(map(chr, range(ord('a'), ord('z')+1)))
+up = list(map(chr, range(ord('A'), ord('Z')+1)))
+loline = ''
+upline = ''
 
+for i in line:
+	if i in lo:
+		if len(loline)==2:
+			# print(loline, upline)
+			if len(upline)==4:
+				symbols.append(upline[:2])
+				upline = ''
+			loline = ''
+			
+		loline += i
+		# print(loline)
+	elif i in up:
+		upline += i
+		print(upline)
+	
+print(symbols)
 
 # Задание-3:
 # Напишите скрипт, заполняющий указанный файл (самостоятельно задайте имя файла)
