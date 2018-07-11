@@ -5,8 +5,12 @@
 # Получить новый список, элементы которого будут
 # квадратами элементов исходного списка
 # [1, 2, 4, 0] --> [1, 4, 16, 0]
+import random
 
-lst = [1, 2, 4, 0]
+lst = []
+for el in range(10):
+    lst.append(random.randint(-10, 10))
+print('lst = ', lst)
 lst_g = [el**2 for el in lst]
 print(lst_g)
 
@@ -25,3 +29,13 @@ print(fruits_g)
 # + Элемент кратен 3
 # + Элемент положительный
 # + Элемент не кратен 4
+
+lst = []
+for el in range(10):
+    lst.append(random.randint(-10, 10))
+print('lst = ', lst)
+
+new_list = [el for el in lst if (el % 3 == 0) & (el > 0) & (el % 4 != 0)]
+print(new_list)
+
+
