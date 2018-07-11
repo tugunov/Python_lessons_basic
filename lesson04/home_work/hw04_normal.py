@@ -27,6 +27,24 @@ line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
 # print(found)
 
 # -- СПОСОБ 2 --
+newline = ''
+sequences = []
+lower = list(map(chr, range(ord('a'), ord('z')+1)))
+
+print(lower)
+for i in line:
+	if i in lower:
+		newline += i
+	else:
+		if newline != '':
+			sequences.append(newline)
+		newline = ''
+
+if newline != '': #строка символов после последнего символа в верхнем регистре
+	sequences.append(newline)
+	
+print(sequences)
+
 
 # Задание-2:
 # Вывести символы в верхнем регистре, слева от которых находятся
@@ -68,29 +86,29 @@ line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
 # Найдите и выведите самую длинную последовательность одинаковых цифр
 # в вышезаполненном файле.
 
-import random
-import os
-import re
+# import random
+# import os
+# import re
 
-name = 'number'
-newpath = os.path.join(name) # создаем файл в той же папке, где лежит код
-f = open(newpath, 'w', encoding='UTF-8')
-for i in range(0, 2500):
-	f.write(str(random.randint(0, 10)))
-f.close()
+# name = 'number'
+# newpath = os.path.join(name) # создаем файл в той же папке, где лежит код
+# f = open(newpath, 'w', encoding='UTF-8')
+# for i in range(0, 2500):
+# 	f.write(str(random.randint(0, 10)))
+# f.close()
 
-f = open(newpath, 'r', encoding='UTF-8')
-pattern = '1{2,2500}|2{2,2500}|3{2,2500}|4{2,2500}|5{2,2500}|6{2,2500}|'\
-'7{2,2500}|8{2,2500}|9{2,2500}|0{2,2500}'
-found = re.findall(pattern, f.readline())
-f.close()
+# f = open(newpath, 'r', encoding='UTF-8')
+# pattern = '1{2,2500}|2{2,2500}|3{2,2500}|4{2,2500}|5{2,2500}|6{2,2500}|'\
+# '7{2,2500}|8{2,2500}|9{2,2500}|0{2,2500}'
+# found = re.findall(pattern, f.readline())
+# f.close()
 
-print(found)
+# print(found)
 
-max_len = 0
-longest = ''
-for el in found:
-	if len(el)>max_len:
-		longest = el[:]
-		max_len = len(el)
-print('Максимальная последовательность одинаковых цифр: {}'.format(longest))
+# max_len = 0
+# longest = ''
+# for el in found:
+# 	if len(el)>max_len:
+# 		longest = el[:]
+# 		max_len = len(el)
+# print('Максимальная последовательность одинаковых цифр: {}'.format(longest))
