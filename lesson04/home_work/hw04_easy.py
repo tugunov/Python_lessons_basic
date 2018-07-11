@@ -11,6 +11,7 @@ lst = []
 for el in range(10):
     lst.append(random.randint(-10, 10))
 print('lst = ', lst)
+
 lst_g = [el**2 for el in lst]
 print(lst_g)
 
