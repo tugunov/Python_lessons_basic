@@ -58,7 +58,7 @@ line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
 # found = re.findall(pattern, line)
 # print(found)
 
-# -- СПОСОБ 1 --
+# -- СПОСОБ 2 --
 
 
 # Задание-3:
@@ -67,3 +67,30 @@ line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
 # 2500-значное произвольное число.
 # Найдите и выведите самую длинную последовательность одинаковых цифр
 # в вышезаполненном файле.
+
+import random
+import os
+import re
+
+name = 'number'
+newpath = os.path.join(name) # создаем файл в той же папке, где лежит код
+f = open(newpath, 'w', encoding='UTF-8')
+for i in range(0, 2500):
+	f.write(str(random.randint(0, 10)))
+f.close()
+
+f = open(newpath, 'r', encoding='UTF-8')
+pattern = '1{2,2500}|2{2,2500}|3{2,2500}|4{2,2500}|5{2,2500}|6{2,2500}|'\
+'7{2,2500}|8{2,2500}|9{2,2500}|0{2,2500}'
+found = re.findall(pattern, f.readline())
+f.close()
+
+print(found)
+
+max_len = 0
+longest = ''
+for el in found:
+	if len(el)>max_len:
+		longest = el[:]
+		max_len = len(el)
+print('Максимальная последовательность одинаковых цифр: {}'.format(longest))
