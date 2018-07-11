@@ -19,8 +19,15 @@ line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
        'qHFjvihuNGEEFsfnMXTfptvIOlhKhyYwxLnqOsBdGvnuyEZIheApQGOXWeXoLWiDQNJFa'\
        'XiUWgsKQrDOeZoNlZNRvHnLgCmysUeKnVJXPFIzvdDyleXylnKBfLCjLHntltignbQoiQ'\
        'zTYwZAiRwycdlHfyHNGmkNqSwXUrxGc'
+# -- СПОСОБ 1 --
+# import re
+# pattern1 = '([a-z]+)[A-Z]+'
+# pattern2 = '[a-z]+$'
+# found = re.findall(pattern1, line) + re.findall(pattern2, line)
+# print(found)
 
-
+# -- СПОСОБ 2 --
+print(range('A','Z'))
 # Задание-2:
 # Вывести символы в верхнем регистре, слева от которых находятся
 # два символа в нижнем регистре, а справа - два символа в верхнем регистре.
