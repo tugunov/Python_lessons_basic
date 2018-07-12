@@ -131,29 +131,31 @@ print(find_symbols(line_2))
 # Найдите и выведите самую длинную последовательность одинаковых цифр
 # в вышезаполненном файле.
 
-# import random
-# import os
-# import re
+import random
+import os
+import re
 
-# name = 'number'
-# newpath = os.path.join(name) # создаем файл в той же папке, где лежит код
-# f = open(newpath, 'w', encoding='UTF-8')
-# for i in range(0, 2500):
-# 	f.write(str(random.randint(0, 10)))
-# f.close()
+name = 'number'
+newpath = os.path.join(name) # создаем файл в той же папке, где лежит код
+f = open(newpath, 'w', encoding='UTF-8')
+for i in range(0, 2500):
+    f.write(str(random.randint(0, 10)))
+f.close()
 
-# f = open(newpath, 'r', encoding='UTF-8')
-# pattern = '1{2,2500}|2{2,2500}|3{2,2500}|4{2,2500}|5{2,2500}|6{2,2500}|'\
-# '7{2,2500}|8{2,2500}|9{2,2500}|0{2,2500}'
-# found = re.findall(pattern, f.readline())
-# f.close()
+f = open(newpath, 'r', encoding='UTF-8')
+pattern = '1{2,2500}|2{2,2500}|3{2,2500}|4{2,2500}|5{2,2500}|6{2,2500}|'\
+'7{2,2500}|8{2,2500}|9{2,2500}|0{2,2500}'
+found = re.findall(pattern, f.readline()) # все последовательности одинаковых цифр длиной 2 и более
+f.close()
 
-# print(found)
+max_len = 0 # находим наибольшую длину последовательности
+for el in found:
+    if len(el)>max_len:
+        max_len = len(el)
+# самых длинных последовательностей может быть несколько
+# соберем из них множество и преобразуем его в строку
+result = ''
+for item in (set(list(filter(lambda x: len(x)==max_len, found)))):
+    result += item + ' '
 
-# max_len = 0
-# longest = ''
-# for el in found:
-# 	if len(el)>max_len:
-# 		longest = el[:]
-# 		max_len = len(el)
-# print('Максимальная последовательность одинаковых цифр: {}'.format(longest))
+print('Максимальная последовательность одинаковых цифр: {}'.format(result))
