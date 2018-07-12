@@ -27,23 +27,22 @@ found = re.findall(pattern1, line) + re.findall(pattern2, line)
 print(found)
 
 # # -- СПОСОБ 2 --
-# newline = ''
-# sequences = []
-# lower = list(map(chr, range(ord('a'), ord('z')+1)))
+newline = '' 
+sequences = []
+lower = list(map(chr, range(ord('a'), ord('z')+1)))
 
-# print(lower)
-# for i in line:
-# 	if i in lower:
-# 		newline += i
-# 	else:
-# 		if newline != '':
-# 			sequences.append(newline)
-# 		newline = ''
+for i in line:
+     if i in lower:
+            newline += i
+     else:
+            if newline != '': # записываем подстроку в нижнем регистре в список
+                   sequences.append(newline)
+            newline = '' # обнуляем вспомогательную строку для новой итерации
 
-# if newline != '': #строка символов после последнего символа в верхнем регистре
-# 	sequences.append(newline)
+if newline != '': #строка символов после последнего символа в верхнем регистре
+     sequences.append(newline)
 
-# print(sequences)
+print(sequences)
 
 
 # Задание-2:
