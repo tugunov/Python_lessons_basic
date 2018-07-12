@@ -73,10 +73,10 @@ line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
 line3 = 'mtASDFGHkFHddkfhgAFIt'
 
 # # -- СПОСОБ 1 --
-# import re
-# pattern = '[a-z]{2,2}([A-Z]+)[A-Z]{2,2}'
-# found = re.findall(pattern, line)
-# print(found)
+import re
+pattern = '[a-z]{2,2}([A-Z]+)[A-Z]{2,2}'
+found = re.findall(pattern, line)
+print(found)
 
 # # -- СПОСОБ 2 --
 def find_symbols(line):
