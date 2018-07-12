@@ -20,11 +20,11 @@ line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
        'XiUWgsKQrDOeZoNlZNRvHnLgCmysUeKnVJXPFIzvdDyleXylnKBfLCjLHntltignbQoiQ'\
        'zTYwZAiRwycdlHfyHNGmkNqSwXUrxGc'
 # # -- СПОСОБ 1 --
-# import re
-# pattern1 = '([a-z]+)[A-Z]+'
-# pattern2 = '[a-z]+$'
-# found = re.findall(pattern1, line) + re.findall(pattern2, line)
-# print(found)
+import re
+pattern1 = '([a-z]+)[A-Z]+' #все, что слева
+pattern2 = '[a-z]+$' #если в конце строки есть тот, что справа - добавляем его
+found = re.findall(pattern1, line) + re.findall(pattern2, line)
+print(found)
 
 # # -- СПОСОБ 2 --
 # newline = ''
