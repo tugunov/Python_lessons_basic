@@ -70,35 +70,59 @@ line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
        'JFaXiUWgsKQrDOeZoNlZNRvHnLgCmysUeKnVJXPFIzvdDyleXylnKBfLCjLHntltignbQ'\
        'oiQzTYwZAiRwycdlHfyHNGmkNqSwXUrxGC'
 
+line3 = 'mtASDFGHkFHddkfhgAFIt'
+
 # # -- СПОСОБ 1 --
 # import re
 # pattern = '[a-z]{2,2}([A-Z]+)[A-Z]{2,2}'
 # found = re.findall(pattern, line)
 # print(found)
 
-# -- СПОСОБ 2 --
-symbols = []
-lo = list(map(chr, range(ord('a'), ord('z')+1)))
-up = list(map(chr, range(ord('A'), ord('Z')+1)))
-loline = ''
-upline = ''
+# # -- СПОСОБ 2 --
+# symbols = []
+# lo = list(map(chr, range(ord('a'), ord('z')+1)))
+# up = list(map(chr, range(ord('A'), ord('Z')+1)))
+# loline = ''
+# upline = ''
 
-for i in line:
-	if i in lo:
-		if len(loline)==2:
-			# print(loline, upline)
-			if len(upline)==4:
-				symbols.append(upline[:2])
-				upline = ''
-			loline = ''
+# for i in line3:
+# 	if i in lo:
+# 		if len(loline)==2:
+# 			# print(loline, upline)
+# 			if len(upline)>=4:
+# 				symbols.append(upline[:len(upline)-2])
+# 				upline = ''
+# 			loline = ''
 			
-		loline += i
-		# print(loline)
-	elif i in up:
-		upline += i
-		print(upline)
+# 		loline += i
+# 		# print(loline)
+# 	elif i in up:
+#               # что-то еще
+# 		upline += i
+# 		print(upline)
 	
-print(symbols)
+# print(symbols)
+def find_symbols(line):
+    # на вход функция получает строку для поиска
+    # на выход выдается список найденных соответственно условию подстрок
+    symbols = []
+    lo = list(map(chr, range(ord('a'), ord('z')+1)))
+    up = list(map(chr, range(ord('A'), ord('Z')+1)))
+
+    for i, el in enumerate(line):
+        try:
+            if (el in up) & (line[i+1] in lo) & (line[i+2] in lo):
+                j = i + 3
+                sequence = ''
+                while(line[j] in up):
+                    sequence += line[j]
+                    j += 1
+                if len(sequence)>=3:
+                    symbols.append(sequence[:len(sequence)-2])
+        except IndexError:
+            return(symbols)
+
+print(find_symbols(line_2))
 
 # Задание-3:
 # Напишите скрипт, заполняющий указанный файл (самостоятельно задайте имя файла)
