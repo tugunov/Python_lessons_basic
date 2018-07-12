@@ -65,6 +65,26 @@ number = """
 05886116467109405077541002256983155200055935729725
 71636269561882670428252483600823257530420752963450"""
 
+def maxproduct(number):
+    # на вход - строка с числом
+    # на выход - кортеж из произведения и индекса смещения
+    number = number.replace('\n', '') # удаляем символы перевода строки
+
+    max_product = 0
+    pointer = 0 # инициализируем индекс смещения
+    for i, el in enumerate(number[:len(number)-5]): 
+    # заканчиваем за 5 символов до конца строки, чтобы не было IndexError
+        product = 1
+        for j, item in enumerate(number[i:i+5]):
+            product = product * int(item)
+        if product > max_product:
+            max_product = product
+            pointer = i
+    return max_product, pointer
+
+result = maxproduct(number)
+print('Максимальное произведение: {} Индекс смещения: {} Подстрока: {}'\
+    .format(result[0], result[1], number.replace('\n', '')[result[1]:result[1]+5]))
 
 # Задание-3 (Ферзи):
 # Известно, что на доске 8×8 можно расставить 8 ферзей так, чтобы они не били
