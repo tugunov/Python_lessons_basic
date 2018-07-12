@@ -69,8 +69,6 @@ line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
        'JFaXiUWgsKQrDOeZoNlZNRvHnLgCmysUeKnVJXPFIzvdDyleXylnKBfLCjLHntltignbQ'\
        'oiQzTYwZAiRwycdlHfyHNGmkNqSwXUrxGC'
 
-line3 = 'mtASDFGHkFHddkfhgAFIt'
-
 # # -- СПОСОБ 1 --
 import re
 pattern = '[a-z]{2,2}([A-Z]+)[A-Z]{2,2}'
