@@ -79,29 +79,6 @@ line3 = 'mtASDFGHkFHddkfhgAFIt'
 # print(found)
 
 # # -- СПОСОБ 2 --
-# symbols = []
-# lo = list(map(chr, range(ord('a'), ord('z')+1)))
-# up = list(map(chr, range(ord('A'), ord('Z')+1)))
-# loline = ''
-# upline = ''
-
-# for i in line3:
-# 	if i in lo:
-# 		if len(loline)==2:
-# 			# print(loline, upline)
-# 			if len(upline)>=4:
-# 				symbols.append(upline[:len(upline)-2])
-# 				upline = ''
-# 			loline = ''
-			
-# 		loline += i
-# 		# print(loline)
-# 	elif i in up:
-#               # что-то еще
-# 		upline += i
-# 		print(upline)
-	
-# print(symbols)
 def find_symbols(line):
     # на вход функция получает строку для поиска
     # на выход выдается список найденных соответственно условию подстрок
@@ -111,8 +88,8 @@ def find_symbols(line):
 
     for i, el in enumerate(line):
         try:
-            if (el in up) & (line[i+1] in lo) & (line[i+2] in lo):
-                j = i + 3
+            if (el in lo) & (line[i+1] in lo):
+                j = i + 2
                 sequence = ''
                 while(line[j] in up):
                     sequence += line[j]
