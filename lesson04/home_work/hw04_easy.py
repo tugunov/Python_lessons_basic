@@ -30,13 +30,14 @@ print(fruits_g)
 # + Элемент кратен 3
 # + Элемент положительный
 # + Элемент не кратен 4
-
+import random
 lst = []
 for el in range(10):
     lst.append(random.randint(-10, 10))
 print('lst = ', lst)
 
 new_list = [el for el in lst if (el % 3 == 0) & (el > 0) & (el % 4 != 0)]
-print(new_list)
+
+print ('Элемент из списка, кратные 3, положительные, не кратные 4: ', new_list)
 
 
