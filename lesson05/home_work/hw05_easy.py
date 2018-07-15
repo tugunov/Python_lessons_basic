@@ -62,3 +62,45 @@ def copy_file():
     copyf.close()
 
 # copy_file()
+
+# функции для скрипта утилиты в normal
+
+def makedir(name):
+    # функция принимает предполагаемое имя новой директории 
+    # и пытается ее создать в текущей
+    # на выходе True в случае успешного создания, False - при неудаче
+
+    try:
+        newpath = os.path.join(os.getcwd(), name)
+        os.mkdir(newpath)
+    except OSError:
+        return False
+    return True
+
+def deldir(name):
+    # функция принимает имя директории на удаление
+    # и пытается ее удалить в текущей директории
+    # на выходе True в случае успешного удаления, False - при неудаче
+    try:
+        newpath = os.path.join(os.getcwd(), name)
+        os.rmdir(newpath)
+    except OSError:
+        return False
+    return True
+
+def listfile():
+    print('Текущая директория: ', os.getcwd())
+    print('Список файлов и папок в текущей директории: ')
+    for file in os.listdir():
+        print(file)
+
+def chdir(name):
+    # функция принимает имя директории для перехода
+    # и пытается перейти в нее из текущей директории
+    # на выходе True в случае успеха, False - в обратном случае
+    if os.path.isdir(os.path.join(os.getcwd(), name)):
+        os.chdir(os.path.join(os.getcwd(), name))
+        print('Успешный переход в папку: ', os.getcwd())
+        return True
+    else:
+        return False

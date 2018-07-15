@@ -19,31 +19,45 @@ import os
 import sys
 
 def my_main():
-	status = ''
+    status = 'y'
 
-	while status != 'q':
-		status = input('Продолжить работу? (y/q): ')
-		if status == 'y':
-			print('Выберите действие:')
-			print('[1] - Перейти в папку')
-			print('[2] - Просмотреть содержимое текущей папки')
-			print('[3] - Удалить папку')
-			print('[4] - Создать папку')
-			do = int(input('Выберите номер команды: '))
+    while status != 'q':
+        status = input('Продолжить работу? (y/q): ')        
+        if status == 'y':
+            print('Текущая директория: ', os.getcwd())
+            print('Выберите действие:')
+            print('[1] - Перейти в папку')
+            print('[2] - Просмотреть содержимое текущей папки')
+            print('[3] - Удалить папку')
+            print('[4] - Создать папку')
+            do = int(input('Выберите номер команды: '))
 
-			if do ==1:
-				dname = input('Введите имя папки: ')
-				if os.path.isdir(os.path.join(os.getcwd(), dname)):
-					os.chdir(os.path.join(os.getcwd(), dname))
-					print('Текущая директория: ', os.getcwd())
-			elif do == 2: # просмотреть содержимое текущей папки
-				print(os.listdir())
-			elif do == 3:
-				easy.del_dir()
-			elif do == 4:
-				easy.make_dir()
+            if do ==1:
+                dirname = input('Введите имя папки: ')
+                if easy.chdir(dirname):
+                    print('Переход в папку успешно совершен.')
+                else:
+                    print('Переход в папку с указанным именем невозможен.')
+            elif do == 2: # просмотреть содержимое текущей папки
+                easy.listfile()
+            elif do == 3:
+                dirname = input('Введите имя папки для удаления: ')
+                if easy.deldir(dirname):
+                    print('Папка {} успешно удалена'.format(os.path.join(os.getcwd(), dirname)))
+                else:
+                    print('Невозможно удалить папку с таким именем.')
+            elif do == 4:
+                dirname = input('Введите имя новой папки: ')
+                if easy.makedir(dirname):
+                    print('Папка {} успешно создана'.format(os.path.join(os.getcwd(), dirname)))
+                else:
+                    print('Невозможно создать папку с таким именем.')
+            else:
+                pass
 
-		elif status == 'q':
-			print('Всего хорошего!')
-			
+        elif status == 'q':
+            print('Всего хорошего!')
+
+
+
 my_main()
