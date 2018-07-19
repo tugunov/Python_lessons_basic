@@ -13,3 +13,51 @@
 # Для решения данной задачи используйте алгоритмы из задания easy,
 # оформленные в виде соответствующих функций,
 # и импортированные в данный файл из easy.py
+
+import hw05_easy as easy
+import os
+import sys
+
+def my_main():
+    status = 'y'
+
+    while status != 'q':
+        status = input('Продолжить работу? (y/q): ')        
+        if status == 'y':
+            print('Текущая директория: ', os.getcwd())
+            print('Выберите действие:')
+            print('[1] - Перейти в папку')
+            print('[2] - Просмотреть содержимое текущей папки')
+            print('[3] - Удалить папку')
+            print('[4] - Создать папку')
+            do = int(input('Выберите номер команды: '))
+
+            if do ==1:
+                dirname = input('Введите имя папки: ')
+                if easy.chdir(dirname):
+                    print('Переход в папку успешно совершен.')
+                else:
+                    print('Переход в папку с указанным именем невозможен.')
+            elif do == 2: # просмотреть содержимое текущей папки
+                easy.listfile()
+            elif do == 3:
+                dirname = input('Введите имя папки для удаления: ')
+                if easy.deldir(dirname):
+                    print('Папка {} успешно удалена'.format(os.path.join(os.getcwd(), dirname)))
+                else:
+                    print('Невозможно удалить папку с таким именем.')
+            elif do == 4:
+                dirname = input('Введите имя новой папки: ')
+                if easy.makedir(dirname):
+                    print('Папка {} успешно создана'.format(os.path.join(os.getcwd(), dirname)))
+                else:
+                    print('Невозможно создать папку с таким именем.')
+            else:
+                pass
+
+        elif status == 'q':
+            print('Всего хорошего!')
+
+
+
+my_main()
