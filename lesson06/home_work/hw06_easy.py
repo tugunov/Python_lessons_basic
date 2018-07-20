@@ -35,13 +35,13 @@ class Triangle:
         return 2*self.S()/self.AB
 
 
-# t = Triangle(0, 0, 0, 2, 2, 0)
+t = Triangle(0, 0, 0, 2, 2, 0)
 
-# print('Периметр треугольника: {}'.format(round(t.P(), 2)))
-# print('Площадь треугольника: {}'.format(round(t.S(), 2)))
-# print('Высота к стороне AB: {}'.format(round(t.hAB(), 2)))
-# print('Высота к стороне BC: {}'.format(round(t.hBC(), 2)))
-# print('Высота к стороне AC: {}'.format(round(t.hAC(), 2)))
+print('Периметр треугольника: {}'.format(round(t.P(), 2)))
+print('Площадь треугольника: {}'.format(round(t.S(), 2)))
+print('Высота к стороне AB: {}'.format(round(t.hAB(), 2)))
+print('Высота к стороне BC: {}'.format(round(t.hBC(), 2)))
+print('Высота к стороне AC: {}'.format(round(t.hAC(), 2)))
 
 
 
