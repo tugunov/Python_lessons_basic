@@ -1,3 +1,130 @@
+import os
+import json
+import sqlite3
+import datetime
+import urllib.request
+
+DIR = os.path.dirname(__file__) # рабочая директория - там, где лежит исполняемый файл программы
+
+db_filename = os.path.join(DIR, 'weather.db') # создаем файл базы данных и прописываем схему в соответствии с ТЗ
+conn = sqlite3.connect(db_filename)
+conn.close()
+os.remove(db_filename)
+
+with sqlite3.connect(db_filename) as conn:
+    conn.execute("""
+        create table t_weather (
+            city_id        integer primary key,
+            city_name       varchar(255),
+            date            date,
+            temp            integer,
+            weather_id      integer
+
+        );
+        """)
+
+with open(os.path.join(DIR, 'app.id'), 'r', encoding='UTF-8') as app:
+    app_id = app.readline() # считываем api id из отдельного файла
+
+# # Записываем объект Python в файл в виде JSON
+# with open(os.path.join(DIR, 'save_json_data.json'), 'w', encoding='UTF-8', ) as f:
+#     json.dump(python_data, f, ensure_ascii=False)
+#     # ensure_ascii=False - чтобы некирилические символы не были преобразованы к unicode-последовательности
+
+# Читаем JSON из файла и преобразуем к типу Python
+with open(os.path.join(DIR, 'city.list.json'), 'r', encoding='UTF-8') as f:
+    city_data = json.load(f)
+
+# print(read_data)
+print(city_data[0].keys())
+# print(len(city_data))
+countries = []
+for item in city_data:
+    countries.append(item['country'])
+
+str_countries = ''
+countries = list(set(countries))[1:]
+for el in countries:
+    str_countries += ', '+el
+
+# print(str_countries[2:])
+
+cities = [] # это будет список кортежей (city_id, city_name)
+
+# country = input('Введите код страны из приведенных выше: ')
+
+country = 'GE' # для тестирования взята Грузия с небольшим количеством населенных пунктов
+
+# for item in city_data:
+#         if item['country'] == country:
+#             print(item['name'])
+
+if country in countries:
+    for item in city_data:
+        if item['country'] == country:
+
+            city_id = item['id']
+            city_name = str(item['name'])
+
+            api_url = 'http://api.openweathermap.org/data/2.5/weather?id='+str(city_id)+'&units=metric&appid='+app_id
+
+            html = urllib.request.urlopen(api_url).read() # выдается в байтовом типе
+            html = str(html)[2:] # работаем с выдачей как со строкой
+            html = html[:len(html)-1].replace('\\', '\\\\') # временное решение проблемы escape-последовательности
+
+
+            with open(os.path.join(DIR, 'weather.json'), 'w', encoding='UTF-8') as weather:
+                weather.write(html) # пишем обработанную строку во временный json-файл
+
+            with open(os.path.join(DIR, 'weather.json'), 'r', encoding='UTF-8') as t:
+                weather_data = json.load(t) # преобразуем в структуру python
+
+            # print(weather_data)
+
+            # os.remove(db_filename)
+            with sqlite3.connect(db_filename) as conn:
+                conn.execute("""
+                    insert into t_weather (city_id, city_name, date, temp, weather_id) VALUES (?,?,?,?,?)""", (
+                        item['id'], 
+                        str(item['name']), 
+                        datetime.datetime.fromtimestamp(weather_data['dt']).strftime('%Y-%m-%d'),
+                        weather_data['main']['temp'],
+                        weather_data['weather'][0]['id']
+                    )
+                )
+
+            print('Добавлено в базу: ')
+            print('city_id', city_id)
+            print('city_name', city_name)
+            print('weather id = ', weather_data['weather'][0]['id'])
+            print ('temperature = ', weather_data['main']['temp'])
+            print ('unix time = ', weather_data['dt'])
+            print( # перевод unix-времени в человеческий формат
+                datetime.datetime.fromtimestamp(weather_data['dt']).strftime('%Y-%m-%d %H:%M:%S')
+            )
+            print('******************************')
+
+    print('Все города страны добавлены.')
+
+else:
+    print('Нет такой страны')
+
+
+    # Select
+    # Объекты connection имеют атрибут row_factory, который позволяет вызывать
+    # код, контролирующий тип объкта, создаваемого для каждой строки в запросе
+    # Объекты Row дают доступ к данным по индексу и имени
+with sqlite3.connect(db_filename) as conn:   
+    conn.row_factory = sqlite3.Row
+
+    cur = conn.cursor()
+    cur.execute("select * from t_weather")
+    for row in cur.fetchall():
+        # print(row)
+        city_id, city_name, date, temp, weather_id = row
+        print(city_id, city_name, date, temp, weather_id)
+
+
 
 """ 
 == OpenWeatherMap ==
